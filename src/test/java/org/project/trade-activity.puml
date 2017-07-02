@@ -1,0 +1,10 @@
+@startuml
+(*)  --> "MarketDataSession"
+If "Session established" then
+--> [Yes] "ReadMarketDataStream"
+--> "test"
+if "ok"
+else
+--> [No] (*)
+Endif
+@enduml
