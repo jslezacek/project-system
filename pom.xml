@@ -14,18 +14,18 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>docker-nexus</id>
+            <id>nexus-snapshot</id>
             <url>http://localhost:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>docker-nexus</id>
+            <id>nexus-release</id>
             <url>http://localhost:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    </properties>
 
     <build>
         <plugins>
@@ -46,7 +46,7 @@
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <releaseProfiles>releases</releaseProfiles>
+                    <!--<releaseProfiles>releases</releaseProfiles>-->
                 </configuration>
             </plugin>
 
@@ -56,8 +56,9 @@
                 <version>1.6.8</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>docker-nexus</serverId>
+                    <serverId>nexus-releases</serverId>
                     <nexusUrl>http://localhost:8081/repository/maven-releases/</nexusUrl>
+                    <skipStaging>true</skipStaging>
                 </configuration>
             </plugin>
 
