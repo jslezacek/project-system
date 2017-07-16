@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-public class App {
+public class TradingApp {
     public static final int MULTICAST_PORT = 2000;
     public static final String MULTICAST_GROUP = "224.0.0.1";
     public static final String NIC_INTERFACE = "enp3s0";
@@ -22,9 +22,12 @@ public class App {
 
         while (true) {
             mcastSocket.receive(packet);
-            Long entryTimestamp = System.nanoTime();
+            Long entryNs = System.nanoTime();
+            Long entryMs = System.currentTimeMillis();
             String received = new String(packet.getData(), StandardCharsets.US_ASCII);
             System.out.println(received);
+            System.out.println("feed nano:" + entryNs);
+            System.out.println("feed milli:" + entryMs);
             FeedMessage testFeedMessage = new TestFeedMessage("T",1, 50);
             testAlgo.evaluateOpportunity(testFeedMessage);
         }

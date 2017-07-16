@@ -11,6 +11,13 @@ public class TradeOrder {
     Integer Quantity;
     Long SendTimestamp;
 
+    public void setSendTimestampMs(Long sendTimestampMs) {
+        SendTimestampMs = sendTimestampMs;
+    }
+
+    Long SendTimestampMs;
+
+
     public Integer getOrderId() {
         return OrderId;
     }

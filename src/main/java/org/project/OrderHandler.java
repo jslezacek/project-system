@@ -19,6 +19,7 @@ public class OrderHandler {
     public OrderHandler(String hostname, int port) {
         try {
             this.orderSocket = new Socket(hostname, port);
+            orderSocket.setTcpNoDelay(true);
             this.inputStr = orderSocket.getInputStream();
             this.outputStr = orderSocket.getOutputStream();
         } catch (IOException e) {
@@ -28,10 +29,15 @@ public class OrderHandler {
     }
 
     public void sendOrder(TradeOrder tradeOrder) throws IOException {
-        this.order = "My order".getBytes();
+        this.order = "My order |".getBytes();
         this.outputStr.write(this.order);
-        Long timestampExit = System.nanoTime();
-        tradeOrder.setSendTimestamp(timestampExit);
+        this.outputStr.flush(); // send imediately instead of buffering multiple msg.
+        Long timestampNs = System.nanoTime();
+        Long timestampMs = System.currentTimeMillis();
+        tradeOrder.setSendTimestamp(timestampNs);
+        tradeOrder.setSendTimestampMs(timestampMs);
+        System.out.println("Order ns: " + timestampNs);
+        System.out.println("Order ms: " + timestampMs);
     }
 
     private void persistOrder(TradeOrder tradeOrder) {

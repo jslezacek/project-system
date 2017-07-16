@@ -8,10 +8,10 @@ import javax.xml.crypto.Data;
 
 public class TestDataTypes extends TestCase
     {
-        Integer expectedDecodedInt = new Integer(65536);
+        Integer expectedDecodedInt = new Integer(2000);
         byte[] expectedEncodedInt = new byte[2]; // hex value of int 2000
 
-    public TestDataTypes(String testName )
+    public TestDataTypes(String testName)
     {
         super( testName );
         expectedEncodedInt[0] = (byte)0x07;
