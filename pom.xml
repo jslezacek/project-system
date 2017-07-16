@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.project</groupId>
   <artifactId>system</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
   <packaging>jar</packaging>
 
   <name>system</name>
   <scm>
     <developerConnection>scm:git:ssh://git@github.com:22/jslezacek/project-system.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.3</tag>
   </scm>
 
 
