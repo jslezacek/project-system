@@ -1,8 +1,6 @@
 package org.project;
+import java.util.Observer;
 
-/**
- * Created by jojo on 6/5/17.
- */
-public interface TradingAlgo {
+public interface TradingAlgo extends Observer {
     void evaluateOpportunity(FeedMessage feedMessage);
 }

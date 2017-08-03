@@ -1,6 +1,7 @@
 package org.project;
 
 import java.io.IOException;
+import java.util.Observable;
 
 /**
  * Created by jojo on 6/5/17.
@@ -23,6 +24,7 @@ public class TestTradingAlgo implements TradingAlgo {
         if (feedMessage.getMsgType() == "T") {
             if (feedMessage.getPrice() <= this.PriceThreshold) {
                 System.out.println("Valid trade opportunity.");
+
                 TradeOrder testTradeOrder = new TradeOrder();
                 testTradeOrder.setFeedTriggerId(feedMessage.getSeqNo());
                 testTradeOrder.setOrderId(10);
@@ -38,5 +40,10 @@ public class TestTradingAlgo implements TradingAlgo {
                 }
             }
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

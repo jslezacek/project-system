@@ -16,6 +16,7 @@ public class TestFeedMessage implements FeedMessage {
         this.MsgType = DataTypes.decodeAscii(rawBytes);
     }
 
+    // Setters are not the same thing, because they would allow you to change object properties after its creation.
     public TestFeedMessage(String msgType, Integer sequenceNumber, Integer price) {
         MsgType = msgType;
         SequenceNumber = sequenceNumber;
