@@ -8,18 +8,17 @@ import java.util.Observable;
  */
 public class TestTradingAlgo implements TradingAlgo {
 
-//    String Product;
     Integer PriceThreshold;
     Integer Quantity = 10;
     OrderHandler testOrderHandler;
-
+    //TODO: might pass subject as well
     public TestTradingAlgo(Integer buyPrice, OrderHandler testOrderHandler) {
         this.PriceThreshold = buyPrice;
         this.testOrderHandler = testOrderHandler;
     }
 
     @Override
-    public void evaluateOpportunity(FeedMessage feedMessage) {
+    public void evaluateTradeOpportunity(FeedMessage feedMessage) {
         System.out.println(feedMessage.getMsgType());
         if (feedMessage.getMsgType() == "T") {
             if (feedMessage.getPrice() <= this.PriceThreshold) {
@@ -43,7 +42,7 @@ public class TestTradingAlgo implements TradingAlgo {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-
+    public void update(FeedMessage feedMessage) {
+        this.evaluateTradeOpportunity(feedMessage);
     }
 }

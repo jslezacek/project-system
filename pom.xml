@@ -49,19 +49,6 @@
                     <!--<releaseProfiles>releases</releaseProfiles>-->
                 </configuration>
             </plugin>
-
-            <!--<plugin>-->
-                <!--<groupId>org.sonatype.plugins</groupId>-->
-                <!--<artifactId>nexus-staging-maven-plugin</artifactId>-->
-                <!--<version>1.6.8</version>-->
-                <!--<extensions>true</extensions>-->
-                <!--<configuration>-->
-                    <!--<serverId>nexus-releases</serverId>-->
-                    <!--<nexusUrl>http://localhost:8081/repository/maven-releases/</nexusUrl>-->
-                    <!--<skipStaging>true</skipStaging>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
         </plugins>
     </build>
 
