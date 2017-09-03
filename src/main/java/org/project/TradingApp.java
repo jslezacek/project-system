@@ -1,4 +1,9 @@
 package org.project;
+import org.project.network.FeedHandler;
+import org.project.network.OrderHandler;
+import org.project.traders.TestTradingAlgo;
+import org.project.traders.TradingAlgo;
+
 import java.io.IOException;
 
 public class TradingApp {
@@ -11,8 +16,8 @@ public class TradingApp {
 
         FeedHandler testFeedHandler = new FeedHandler(MULTICAST_GROUP, MULTICAST_PORT, NIC_INTERFACE, bufferLength);
         OrderHandler testOrderHandler = new OrderHandler("127.0.0.1", 10000);
-        TradingAlgo testAlgo1 = new TestTradingAlgo(100, testOrderHandler);
-        TradingAlgo testAlgo2 = new TestTradingAlgo(80, testOrderHandler);
+        TradingAlgo testAlgo1 = new TestTradingAlgo(100, testOrderHandler, "trader1");
+        TradingAlgo testAlgo2 = new TestTradingAlgo(80, testOrderHandler, "trader2");
         testFeedHandler.addObserver(testAlgo1);
         testFeedHandler.addObserver(testAlgo2);
         testFeedHandler.run();

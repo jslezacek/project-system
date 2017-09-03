@@ -1,4 +1,4 @@
-package org.project;
+package org.project.network;
 
 public class MulticastSession {
     private final String ipAddress;

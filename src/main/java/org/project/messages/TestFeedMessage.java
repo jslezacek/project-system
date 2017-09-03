@@ -1,7 +1,4 @@
-package org.project;
-
-import javax.xml.crypto.Data;
-import java.io.*;
+package org.project.messages;
 
 /**
  * Created by jojo on 6/4/17.
@@ -36,5 +33,10 @@ public class TestFeedMessage implements FeedMessage {
     @Override
     public Integer getSeqNo() {
         return this.SequenceNumber;
+    }
+
+    @Override
+    public byte[] toBinary() {
+        return new byte[0];
     }
 }

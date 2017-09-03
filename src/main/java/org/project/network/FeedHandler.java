@@ -1,4 +1,10 @@
-package org.project;
+package org.project.network;
+
+import org.project.messages.FeedMessage;
+import org.project.messages.TestFeedMessage;
+import org.project.traders.ObservedSubject;
+import org.project.traders.Observer;
+import org.project.traders.TradingAlgo;
 
 import java.io.IOException;
 import java.net.*;
@@ -42,7 +48,11 @@ public class FeedHandler implements ObservedSubject {
 
     @Override
     public void addObserver(Observer o) {
-        System.out.println("New feed suscriber. Total subscribers: " + this.feedSuscribers.size());
+        String traderName;
+        if (o instanceof TradingAlgo) {
+            traderName = ((TradingAlgo) o).getTraderName();
+        } else traderName = "InvalidTrader";
+        System.out.println("New feed suscriber: " + traderName +  " Total subscribers: " + this.feedSuscribers.size());
         this.feedSuscribers.add(o);
     }
 
@@ -53,7 +63,7 @@ public class FeedHandler implements ObservedSubject {
 
     @Override
     public void notifyObservers(FeedMessage feedMessage) {
-        for (org.project.Observer feedSuscriber : this.feedSuscribers) {
+        for (Observer feedSuscriber : this.feedSuscribers) {
            feedSuscriber.update(feedMessage);
         }
     }

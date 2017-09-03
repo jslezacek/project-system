@@ -1,6 +1,6 @@
-package org.project;
+package org.project.traders;
 
-import org.project.Observer;
+import org.project.messages.FeedMessage;
 
 public interface ObservedSubject {
     public void addObserver(Observer o);

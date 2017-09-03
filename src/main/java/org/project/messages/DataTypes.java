@@ -1,4 +1,4 @@
-package org.project;
+package org.project.messages;
 import java.nio.charset.StandardCharsets;
 
 /**

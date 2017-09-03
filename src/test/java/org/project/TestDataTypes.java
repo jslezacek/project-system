@@ -3,8 +3,7 @@ package org.project;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import javax.xml.crypto.Data;
+import org.project.messages.DataTypes;
 
 public class TestDataTypes extends TestCase
     {
@@ -18,10 +17,10 @@ public class TestDataTypes extends TestCase
         expectedEncodedInt[1] = (byte)0xD0;
     }
 
-    public static Test suite()
-    {
-        return new TestSuite( TestDataTypes.class);
-    }
+//    public static Test suite()
+//    {
+//        return new TestSuite( TestDataTypes.class);
+//    }
 
     public void testAsciiEncodeDecode()
     {

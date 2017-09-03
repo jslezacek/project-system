@@ -1,4 +1,4 @@
-package org.project;
+package org.project.messages;
 
 import java.io.Externalizable;
 import java.io.Serializable;
@@ -10,4 +10,5 @@ public interface FeedMessage {
     public String getMsgType();
     public Integer getPrice();
     public Integer getSeqNo();
+    public byte[] toBinary();
 }

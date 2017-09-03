@@ -1,10 +1,13 @@
-package org.project;
+package org.project.network;
+
+import org.project.TradeOrder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by jojo on 6/5/17.
@@ -29,7 +32,8 @@ public class OrderHandler {
     }
 
     public void sendOrder(TradeOrder tradeOrder) throws IOException {
-        this.order = "My order |".getBytes();
+        this.order = "\u00018=FIX-5.0|35=ZZ|11=trader1-001|55=APPL|44=100.20\u0001".getBytes();
+        System.out.println(this.order.length);
         this.outputStr.write(this.order);
         this.outputStr.flush(); // send imediately instead of buffering multiple msg.
         Long timestampNs = System.nanoTime();

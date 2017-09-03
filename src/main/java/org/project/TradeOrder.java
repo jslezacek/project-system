@@ -4,6 +4,7 @@ package org.project;
  * Created by jojo on 6/5/17.
  */
 public class TradeOrder {
+    String TraderId;
     Integer OrderId;
     Integer FeedTriggerId;
     String Product;
@@ -64,5 +65,12 @@ public class TradeOrder {
 
     public void setSendTimestamp(Long sendTimestamp) {
         SendTimestamp = sendTimestamp;
+    }
+    public String getTraderId() {
+        return TraderId;
+    }
+
+    public void setTraderId(String traderId) {
+        TraderId = traderId;
     }
 }
