@@ -7,15 +7,13 @@ import org.project.messages.FeedMessage;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-/**
- * Created by jojo on 6/5/17.
- */
 public class TestTradingAlgo implements TradingAlgo {
 
     Integer PriceThreshold;
     Integer Quantity = 10;
     OrderHandler testOrderHandler;
     String traderName;
+    Integer counter = 200;
     //TODO: might pass subject as well
     public TestTradingAlgo(Integer buyPrice, OrderHandler testOrderHandler, String traderName) {
         this.PriceThreshold = buyPrice;
@@ -28,16 +26,17 @@ public class TestTradingAlgo implements TradingAlgo {
         System.out.println(feedMessage.getMsgType());
         if (feedMessage.getMsgType() == "T") {
             if (feedMessage.getPrice() <= this.PriceThreshold) {
-//                System.out.println("Valid trade opportunity.");
+                String orderId = this.traderName + " " + counter;
                 TradeOrder testTradeOrder = new TradeOrder();
                 testTradeOrder.setFeedTriggerId(feedMessage.getSeqNo());
-                testTradeOrder.setOrderId(10);
+                testTradeOrder.setOrderId(orderId);
                 testTradeOrder.setQuantity(this.Quantity);
                 testTradeOrder.setPrice(feedMessage.getPrice());
                 testTradeOrder.setTraderId(this.traderName + "one");
                 try {
                     System.out.println("Sending order " + this.traderName);
                     this.testOrderHandler.sendOrder(testTradeOrder);
+                    counter ++;
                 } catch (IOException e) {
                     System.out.println(e);
                     System.exit(1);

@@ -1,12 +1,9 @@
 package org.project.messages;
 
-/**
- * Created by jojo on 6/4/17.
- */
 public class TestFeedMessage implements FeedMessage {
 
     public String MsgType;
-    public Integer SequenceNumber;
+    public String SequenceNumber;
     public Integer Price;
 
     TestFeedMessage(byte[] rawBytes) {
@@ -14,7 +11,7 @@ public class TestFeedMessage implements FeedMessage {
     }
 
     // Setters are not the same thing, because they would allow you to change object properties after its creation.
-    public TestFeedMessage(String msgType, Integer sequenceNumber, Integer price) {
+    public TestFeedMessage(String msgType, String sequenceNumber, Integer price) {
         MsgType = msgType;
         SequenceNumber = sequenceNumber;
         Price = price;
@@ -31,7 +28,7 @@ public class TestFeedMessage implements FeedMessage {
     }
 
     @Override
-    public Integer getSeqNo() {
+    public String getSeqNo() {
         return this.SequenceNumber;
     }
 

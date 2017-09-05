@@ -8,6 +8,7 @@ import org.project.traders.TradingAlgo;
 
 import java.io.IOException;
 import java.net.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -16,27 +17,28 @@ public class FeedHandler implements ObservedSubject {
     private ArrayList<Observer> feedSuscribers = new ArrayList<Observer>();
     private final MulticastSocket mcastSocket;
     private DatagramPacket networkPacket;
+    private final KafkaPublisher kafkaBus;
 
     //TODO: builder pattern - telescopic constructor optional args (2 optional)
-    public FeedHandler(String ipAddress, Integer portNumber, String networkInterface, Integer packetBuffer) throws IOException {
+    public FeedHandler(String ipAddress, Integer portNumber, String networkInterface, Integer buffer) throws IOException {
         InetAddress inetAddress = InetAddress.getByName(ipAddress);
         this.mcastSocket = new MulticastSocket(portNumber);
         this.mcastSocket.setNetworkInterface(NetworkInterface.getByName(networkInterface));
         this.mcastSocket.joinGroup(inetAddress);
-        this.networkPacket = new DatagramPacket(new byte[packetBuffer], packetBuffer);
+        this.networkPacket = new DatagramPacket(new byte[buffer], buffer);
+        this.kafkaBus = new KafkaPublisher("framework:9092");
     }
 
     public void run() {
         while (true) {
             try {
                 mcastSocket.receive(networkPacket);
-                Long entryNs = System.nanoTime();
-                Long entryMs = System.currentTimeMillis();
-                String received = new String(networkPacket.getData(), StandardCharsets.US_ASCII);
-                System.out.println(received);
-                System.out.println("feed nano:" + entryNs);
-                System.out.println("feed milli:" + entryMs);
-                FeedMessage testFeedMessage = new TestFeedMessage("T", 1, 50);
+                long feedReceivedTs = System.nanoTime();
+                String received = new String(networkPacket.getData(), 0, networkPacket.getLength(), StandardCharsets.US_ASCII);
+                System.out.println(received + " " + feedReceivedTs);
+                String benchmarkMsg = "FeedId: " + received;
+                kafkaBus.send("test", benchmarkMsg);
+                FeedMessage testFeedMessage = new TestFeedMessage("T", received, 50);
                 // TODO: observer pattern push vs pull notify()
                 notifyObservers(testFeedMessage);
             } catch (IOException e) {
