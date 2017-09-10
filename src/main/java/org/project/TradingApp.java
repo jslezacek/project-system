@@ -19,7 +19,7 @@ public class TradingApp {
         TradingAlgo testAlgo1 = new TestTradingAlgo(100, testOrderHandler, "trader1");
         TradingAlgo testAlgo2 = new TestTradingAlgo(80, testOrderHandler, "trader2");
         testFeedHandler.addObserver(testAlgo1);
-        testFeedHandler.addObserver(testAlgo2);
+//        testFeedHandler.addObserver(testAlgo2);
         testFeedHandler.run();
     }
 }

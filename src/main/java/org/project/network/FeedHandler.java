@@ -1,5 +1,7 @@
 package org.project.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.project.messages.FeedMessage;
 import org.project.messages.TestFeedMessage;
 import org.project.traders.ObservedSubject;
@@ -8,9 +10,9 @@ import org.project.traders.TradingAlgo;
 
 import java.io.IOException;
 import java.net.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FeedHandler implements ObservedSubject {
     //TODO:  sequential notification
@@ -18,6 +20,7 @@ public class FeedHandler implements ObservedSubject {
     private final MulticastSocket mcastSocket;
     private DatagramPacket networkPacket;
     private final KafkaPublisher kafkaBus;
+    private final String sourceName = "FeedHandler";
 
     //TODO: builder pattern - telescopic constructor optional args (2 optional)
     public FeedHandler(String ipAddress, Integer portNumber, String networkInterface, Integer buffer) throws IOException {
@@ -26,18 +29,27 @@ public class FeedHandler implements ObservedSubject {
         this.mcastSocket.setNetworkInterface(NetworkInterface.getByName(networkInterface));
         this.mcastSocket.joinGroup(inetAddress);
         this.networkPacket = new DatagramPacket(new byte[buffer], buffer);
-        this.kafkaBus = new KafkaPublisher("framework:9092");
+        this.kafkaBus = new KafkaPublisher("framework:9092", "measurements");
     }
 
     public void run() {
         while (true) {
             try {
                 mcastSocket.receive(networkPacket);
-                long feedReceivedTs = System.nanoTime();
+
+                long timestamp = System.nanoTime();
+
                 String received = new String(networkPacket.getData(), 0, networkPacket.getLength(), StandardCharsets.US_ASCII);
-                System.out.println(received + " " + feedReceivedTs);
-                String benchmarkMsg = "FeedId: " + received;
-                kafkaBus.send("test", benchmarkMsg);
+                HashMap benchmarkMsg = new HashMap();
+                String feedId = received;
+
+                benchmarkMsg.put("feedId", feedId);
+                benchmarkMsg.put("feedTs", String.valueOf(timestamp));
+                benchmarkMsg.put("sourceId", this.sourceName);
+
+                Gson gson = new GsonBuilder().create();
+                kafkaBus.send(gson.toJson(benchmarkMsg));
+
                 FeedMessage testFeedMessage = new TestFeedMessage("T", received, 50);
                 // TODO: observer pattern push vs pull notify()
                 notifyObservers(testFeedMessage);
