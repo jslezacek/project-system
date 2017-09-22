@@ -2,9 +2,9 @@ package org.project.messages;
 
 public class TestFeedMessage implements FeedMessage {
 
-    public String MsgType;
-    public String SequenceNumber;
-    public Integer Price;
+    private String MsgType;
+    private String SequenceNumber;
+    private Integer Price;
 
     TestFeedMessage(byte[] rawBytes) {
         this.MsgType = DataTypes.decodeAscii(rawBytes);
@@ -34,6 +34,7 @@ public class TestFeedMessage implements FeedMessage {
 
     @Override
     public byte[] toBinary() {
+
         return new byte[0];
     }
 }

@@ -4,7 +4,7 @@ import org.project.messages.FeedMessage;
 
 public class RealTradingAlgo implements TradingAlgo {
     @Override
-    public void evaluateTradeOpportunity(FeedMessage feedMessage) {
+    public void evalTrade(FeedMessage feedMessage) {
 
     }
 

@@ -11,15 +11,14 @@
     <tag>HEAD</tag>
   </scm>
 
-
     <distributionManagement>
         <snapshotRepository>
             <id>nexus-snapshot</id>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <url>http://ci:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>nexus-release</id>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <url>http://ci:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 

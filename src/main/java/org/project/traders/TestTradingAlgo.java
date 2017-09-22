@@ -4,7 +4,6 @@ import org.project.network.OrderHandler;
 import org.project.TradeOrder;
 import org.project.messages.FeedMessage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 public class TestTradingAlgo implements TradingAlgo {
@@ -22,7 +21,7 @@ public class TestTradingAlgo implements TradingAlgo {
     }
 
     @Override
-    public void evaluateTradeOpportunity(FeedMessage feedMessage) {
+    public void evalTrade(FeedMessage feedMessage) {
         System.out.println(feedMessage.getMsgType());
         if (feedMessage.getMsgType() == "T") {
             if (feedMessage.getPrice() <= this.PriceThreshold) {
@@ -52,6 +51,6 @@ public class TestTradingAlgo implements TradingAlgo {
 
     @Override
     public void update(FeedMessage feedMessage) {
-        this.evaluateTradeOpportunity(feedMessage);
+        this.evalTrade(feedMessage);
     }
 }

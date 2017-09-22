@@ -5,12 +5,14 @@ import org.project.traders.TestTradingAlgo;
 import org.project.traders.TradingAlgo;
 
 import java.io.IOException;
+import java.util.Observer;
 
 public class TradingApp {
     public static final int MULTICAST_PORT = 2000;
     public static final String MULTICAST_GROUP = "224.0.0.1";
     public static final String NIC_INTERFACE = "lo";
     public static final Integer bufferLength = 2048;
+    Observer tradingAlgo;
 
     public static void main(String[] args) throws IOException {
 
