@@ -26,7 +26,7 @@ public class FeedHandler implements ObservedSubject {
     public FeedHandler(String ipAddress, Integer portNumber, String networkInterface, Integer buffer) throws IOException {
         InetAddress inetAddress = InetAddress.getByName(ipAddress);
         this.mcastSocket = new MulticastSocket(portNumber);
-//        this.mcastSocket.setNetworkInterface(NetworkInterface.getByName(networkInterface));
+        this.mcastSocket.setNetworkInterface(NetworkInterface.getByName(networkInterface));
         this.mcastSocket.joinGroup(inetAddress);
         this.networkPacket = new DatagramPacket(new byte[buffer], buffer);
         this.kafkaBus = new KafkaPublisher("framework:9092", "measurements");
