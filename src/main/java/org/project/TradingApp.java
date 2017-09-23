@@ -17,7 +17,7 @@ public class TradingApp {
     public static void main(String[] args) throws IOException {
 
         FeedHandler testFeedHandler = new FeedHandler(MULTICAST_GROUP, MULTICAST_PORT, NIC_INTERFACE, bufferLength);
-        OrderHandler testOrderHandler = new OrderHandler("127.0.0.1", 10000);
+        OrderHandler testOrderHandler = new OrderHandler("framework", 10000);
         TradingAlgo testAlgo1 = new TestTradingAlgo(100, testOrderHandler, "trader1");
         TradingAlgo testAlgo2 = new TestTradingAlgo(80, testOrderHandler, "trader2");
         testFeedHandler.addObserver(testAlgo1);
