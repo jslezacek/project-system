@@ -10,13 +10,14 @@ public class TestTradingAlgo implements TradingAlgo {
 
     Integer PriceThreshold;
     Integer Quantity = 10;
-    OrderHandler testOrderHandler;
+    OrderHandler testCoreOrderHandler;
     String traderName;
     Integer counter = 200;
     //TODO: might pass subject as well
-    public TestTradingAlgo(Integer buyPrice, OrderHandler testOrderHandler, String traderName) {
+
+    public TestTradingAlgo(Integer buyPrice, OrderHandler testCoreOrderHandler, String traderName) {
         this.PriceThreshold = buyPrice;
-        this.testOrderHandler = testOrderHandler;
+        this.testCoreOrderHandler = testCoreOrderHandler;
         this.traderName = traderName;
     }
 
@@ -34,7 +35,7 @@ public class TestTradingAlgo implements TradingAlgo {
                 testTradeOrder.setTraderId(this.traderName + "one");
                 try {
                     System.out.println("Sending order " + this.traderName);
-                    this.testOrderHandler.sendOrder(testTradeOrder);
+                    this.testCoreOrderHandler.sendOrder(testTradeOrder);
                     counter ++;
                 } catch (IOException e) {
                     System.out.println(e);

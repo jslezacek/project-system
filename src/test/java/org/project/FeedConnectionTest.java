@@ -32,7 +32,7 @@
 //        FeedMessage decodedTestFeedMessage = feedDecoder.decode(byte[]);
 //        feedDecoder.notify(decodedTestFeedMessage);
 //
-//        OrderHandler testOrderHandler = new TestOrderHandler();
+//        CoreOrderHandler testOrderHandler = new TestOrderHandler();
 //
 //        OrderEncoder testOrderEncoder = new TestOrderEncoder();
 //        byte [] testOrderEncoder.encode(testOrderMessage);
