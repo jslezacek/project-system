@@ -29,7 +29,6 @@ public class MeasuredOrderHandler extends OrderHandlerDecorator {
                 feedId(feedId).
                 orderTs(timestamp).
                 build();
-
         this.kafkaBus.send(measurement.toJson());
     }
 }

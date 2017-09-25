@@ -15,7 +15,7 @@ public class TradingApp {
     public static int MULTICAST_PORT;
     public static String MULTICAST_GROUP;
 //    public static final String NIC_INTERFACE = "eth1";
-    public static String NIC_INTERFACE = "vboxnet2";
+    public static String NIC_INTERFACE = "eth1";
     public static final Integer bufferLength = 2048;
 
     public static void main(String[] args) throws IOException {
@@ -34,7 +34,7 @@ public class TradingApp {
         String orderGwHost = prop.getProperty("order-gw-ip");
         int orderGwPort = Integer.parseInt(prop.getProperty("order-gw-port"));
 
-        FeedHandler testFeedHandler = new FeedHandler(MULTICAST_GROUP, MULTICAST_PORT, NIC_INTERFACE, bufferLength);
+        FeedHandler feedHandler = new FeedHandler(MULTICAST_GROUP, MULTICAST_PORT, NIC_INTERFACE, bufferLength);
 
         Socket orderSocket = new Socket(orderGwHost, orderGwPort);
 
@@ -45,8 +45,8 @@ public class TradingApp {
 
         TradingAlgo testAlgo1 = new TestTradingAlgo(100, measuredOrderHandler, "trader1");
         TradingAlgo testAlgo2 = new TestTradingAlgo(80, measuredOrderHandler, "trader2");
-        testFeedHandler.addObserver(testAlgo1);
-        testFeedHandler.addObserver(testAlgo2);
-        testFeedHandler.run();
+        feedHandler.addObserver(testAlgo1);
+        feedHandler.addObserver(testAlgo2);
+        feedHandler.run();
     }
 }
