@@ -21,7 +21,7 @@ public class MeasuredOrderHandler extends OrderHandlerDecorator {
 
     private void sendMeasurement(TradeOrder tradeOrder) {
         String orderId = tradeOrder.getOrderId();
-        int feedId = Integer.parseInt(tradeOrder.getFeedTriggerId());
+        int feedId = tradeOrder.getFeedTriggerId();
         long timestamp = System.nanoTime();
 
         BenchmarkMessage measurement = new BenchmarkMessage.Builder(this.sourceId).

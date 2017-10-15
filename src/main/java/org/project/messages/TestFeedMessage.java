@@ -1,40 +1,57 @@
 package org.project.messages;
 
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 public class TestFeedMessage implements FeedMessage {
+    private final int len = 15;
+    private final String msgType = "T";
+    private final int seqNo;
+    private final String product;
+    private final int price;
 
-    private String MsgType;
-    private String SequenceNumber;
-    private Integer Price;
-
-    TestFeedMessage(byte[] rawBytes) {
-        this.MsgType = DataTypes.decodeAscii(rawBytes);
+    public TestFeedMessage(int seqNumber, String product, int price) {
+        this.seqNo = seqNumber;
+        this.product = product;
+        this.price = price;
     }
 
-    // Setters are not the same thing, because they would allow you to change object properties after its creation.
-    public TestFeedMessage(String msgType, String sequenceNumber, Integer price) {
-        MsgType = msgType;
-        SequenceNumber = sequenceNumber;
-        Price = price;
-    }
-
-    @Override
     public String getMsgType() {
-        return this.MsgType;
+        return msgType;
     }
 
-    @Override
-    public Integer getPrice() {
-        return this.Price;
+    public int getSeqNo() {
+        return seqNo;
     }
 
-    @Override
-    public String getSeqNo() {
-        return this.SequenceNumber;
+    public String getProduct() {
+        return product;
     }
 
-    @Override
-    public byte[] toBinary() {
+    public int getPrice() {
+        return price;
+    }
 
-        return new byte[0];
+    public int getLen() {
+        return len;
+    }
+
+    public byte[] getBytes() {
+        byte[] byteMsg = new byte[this.getLen()];
+        ByteBuffer result = ByteBuffer.allocate(this.getLen());
+        result.put(Codecs.encodeUInt16(this.getLen()), 0, 2);
+        result.put(Codecs.encodeAscii(this.getMsgType()), 2, 1);
+        result.put(Codecs.encodeUInt16(this.getSeqNo()), 3, 2);
+        result.put(Codecs.encodeAscii(this.getProduct()), 5, 8);
+        result.put(Codecs.encodeUInt16(this.getPrice()), 13, 2);
+        return result.array();
+    }
+
+    public static FeedMessage parse(byte[] bytearray) {
+        Integer seqNum = Codecs.decodeUInt16(Arrays.copyOfRange(bytearray, 3, 5 ));
+        String product = Codecs.decodeAscii(Arrays.copyOfRange(bytearray, 5, 13 ));
+        Integer price = Codecs.decodeUInt16(Arrays.copyOfRange(bytearray, 13, 15 ));
+        TestFeedMessage result = new TestFeedMessage(seqNum, product, price);
+        return result;
     }
 }

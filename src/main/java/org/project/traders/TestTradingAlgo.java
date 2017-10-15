@@ -30,6 +30,7 @@ public class TestTradingAlgo implements TradingAlgo {
                 TradeOrder testTradeOrder = new TradeOrder();
                 testTradeOrder.setFeedTriggerId(feedMessage.getSeqNo());
                 testTradeOrder.setOrderId(orderId);
+                testTradeOrder.setProduct(feedMessage.getProduct());
                 testTradeOrder.setQuantity(this.Quantity);
                 testTradeOrder.setPrice(feedMessage.getPrice());
                 testTradeOrder.setTraderId(this.traderName + "one");

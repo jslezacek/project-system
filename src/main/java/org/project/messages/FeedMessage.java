@@ -5,7 +5,8 @@ package org.project.messages;
  */
 public interface FeedMessage {
     public String getMsgType();
-    public Integer getPrice();
-    public String getSeqNo();
-    public byte[] toBinary();
+    public int getPrice();
+    public int getSeqNo();
+    public byte[] getBytes();
+    public String getProduct();
 }

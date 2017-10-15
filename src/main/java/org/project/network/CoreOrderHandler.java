@@ -35,8 +35,9 @@ public class CoreOrderHandler implements OrderHandler {
     @Override
     public void sendOrder(TradeOrder tradeOrder) throws IOException {
         String orderId = tradeOrder.getOrderId();
+        String product = tradeOrder.getProduct();
 
-        String orderMsg = "\u00018=FIX-5.0|35=ZZ|11="+orderId+"|55=APPL|44=100.20\u0001";
+        String orderMsg = "\u00018=FIX-5.0|35=ZZ|11="+orderId+"|55="+product+"|44=100.20\u0001";
         this.order = orderMsg.getBytes();
         this.outputStream.write(this.order);
     }

@@ -39,9 +39,10 @@ public class FeedHandler implements ObservedSubject {
 
                 long timestamp = System.nanoTime();
 
-                String received = new String(networkPacket.getData(), 0, networkPacket.getLength(), StandardCharsets.US_ASCII);
+//                String received = new String(networkPacket.getData(), 0, networkPacket.getLength(), StandardCharsets.US_ASCII);
+                FeedMessage received = TestFeedMessage.parse(networkPacket.getData());
                 HashMap benchmarkMsg = new HashMap();
-                String feedId = received;
+                Integer feedId = received.getSeqNo();
 
                 benchmarkMsg.put("feedId", feedId);
                 benchmarkMsg.put("feedTs", String.valueOf(timestamp));
@@ -50,9 +51,8 @@ public class FeedHandler implements ObservedSubject {
                 Gson gson = new GsonBuilder().create();
                 kafkaBus.send(gson.toJson(benchmarkMsg));
 
-                FeedMessage testFeedMessage = new TestFeedMessage("T", received, 50);
                 // TODO: observer pattern push vs pull notify()
-                notifyObservers(testFeedMessage);
+                notifyObservers(received);
             } catch (IOException e) {
                 System.out.println("Invalid packet received.");
                 e.printStackTrace();

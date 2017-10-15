@@ -6,9 +6,9 @@ package org.project;
 public class TradeOrder {
     String TraderId;
     String OrderId;
-    String FeedTriggerId;
+    int FeedTriggerId;
     String Product;
-    Integer Price;
+    int Price;
     Integer Quantity;
     Long SendTimestamp;
 
@@ -27,11 +27,11 @@ public class TradeOrder {
         OrderId = orderId;
     }
 
-    public String getFeedTriggerId() {
+    public int getFeedTriggerId() {
         return FeedTriggerId;
     }
 
-    public void setFeedTriggerId(String feedTriggerId) {
+    public void setFeedTriggerId(int feedTriggerId) {
         FeedTriggerId = feedTriggerId;
     }
 

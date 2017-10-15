@@ -24,7 +24,7 @@ public class OrderHandlerTest {
 
         TradeOrder testOrder = new TradeOrder();
         testOrder.setOrderId("mockTest");
-        testOrder.setFeedTriggerId("10");
+        testOrder.setFeedTriggerId(10);
 
         measuredOrderHandler.sendOrder(testOrder);
 
@@ -33,7 +33,5 @@ public class OrderHandlerTest {
 
         System.out.println(socketOutStream.toString()); // CoreOrderHandler outputStream.write(this.order);
         System.out.println(kafkaMessage.getValue());    // MeasuredOrderHandler kafkaBus.send(measurement.toJson());
-        System.out.println(System.nanoTime());
-        System.out.println(System.currentTimeMillis());
     }
 }

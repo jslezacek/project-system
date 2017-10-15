@@ -1,9 +1,9 @@
 package org.project;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.project.messages.DataTypes;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class TestDataTypes extends TestCase
     {
@@ -47,6 +47,28 @@ public class TestDataTypes extends TestCase
         Integer decodedInt = DataTypes.decodeUInt16(expectedEncodedInt);
         for (byte b: expectedEncodedInt) System.out.printf("0x%02X ", b);
         assertEquals(decodedInt, expectedDecodedInt);
+    }
+
+    public void testAsciiSize() {
+        String a = "a";
+        byte[] b = a.getBytes(StandardCharsets.US_ASCII);
+        System.out.println(b[0]);
+
+    }
+
+    public void testJavaByte() {
+        byte noMask = (byte) 256;
+        System.out.println(noMask);
+        System.out.println(noMask & 0xFF);
+        byte[] a = {(byte)0x07, (byte)0xD0};
+        byte[] b = {(byte)0xD0, (byte)0x07};
+
+        byte[] c = "2000".getBytes(StandardCharsets.US_ASCII);
+        System.out.println(c.length);
+        System.out.println(a.length);
+
+        System.out.println((a[0] & 0xFF) << 8 | (a[1]) & 0xFF);
+        System.out.println((b[0] & 0xFF) << 8 | (b[1]) & 0xFF);
     }
 
     public void testOrdMsg() {

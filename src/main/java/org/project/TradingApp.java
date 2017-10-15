@@ -15,7 +15,7 @@ public class TradingApp {
     public static int MULTICAST_PORT;
     public static String MULTICAST_GROUP;
 //    public static final String NIC_INTERFACE = "eth1";
-    public static String NIC_INTERFACE = "eth1";
+    public static String NIC_INTERFACE = "vboxnet2";
     public static final Integer bufferLength = 2048;
 
     public static void main(String[] args) throws IOException {
